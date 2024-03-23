@@ -7,6 +7,42 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
+const fifo = async () => {
+    const links = [
+    `http://localhost:${PORT_1}/`,
+    `http://localhost:${PORT_2}/`,
+    `http://localhost:${PORT_3}/`
+    ]
+
+    let serverData = [];
+
+    links.forEach(async (link, index) => {
+        const resposta = await axios.get(link);
+        serverData.push(...resposta.data);
+        if(index == 2){
+            console.log(serverData);
+        }
+    });
+}
+
+const pipe = async () => {
+    const links = [
+    `http://localhost:${PORT_1}/`,
+    `http://localhost:${PORT_2}/`,
+    `http://localhost:${PORT_3}/`
+    ]
+
+    let serverData = [];
+
+    links.forEach(async (link, index) => {
+        const resposta = await axios.get(link);
+        serverData.push(...resposta.data);
+        if(index == 2){
+            console.log(serverData);
+        }
+    });
+}
+
 const retornarTudo = async () => {
     try {
         const [response1, response2, response3] = await Promise.all([
@@ -46,7 +82,7 @@ rl.question('Para restornar toda a lista digite \'listar\'. \nPara buscar um uni
 
     switch (normalizeResp) {
         case "LISTAR":
-            await retornarTudo();
+            await fifo();
             break;
         case "UNICO":
         default:
