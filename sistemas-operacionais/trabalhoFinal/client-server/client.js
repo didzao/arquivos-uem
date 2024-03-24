@@ -1,47 +1,14 @@
 const readline = require('readline');
 const axios = require('axios');
-const { PORT_1, PORT_2, PORT_3, normalize } = require('../utils');
+const { PORT_1, PORT_2, PORT_3 } = require('../utils/variaveis');
+const normalize = require('../utils/normalize');
+const pipe = require('../utils/pipe');
+const fifo = require('../utils/fifo');
 
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-
-const fifo = async () => {
-    const links = [
-    `http://localhost:${PORT_1}/`,
-    `http://localhost:${PORT_2}/`,
-    `http://localhost:${PORT_3}/`
-    ]
-
-    let serverData = [];
-
-    links.forEach(async (link, index) => {
-        const resposta = await axios.get(link);
-        serverData.push(...resposta.data);
-        if(index == 2){
-            console.log(serverData);
-        }
-    });
-}
-
-const pipe = async () => {
-    const links = [
-    `http://localhost:${PORT_1}/`,
-    `http://localhost:${PORT_2}/`,
-    `http://localhost:${PORT_3}/`
-    ]
-
-    let serverData = [];
-
-    links.forEach(async (link, index) => {
-        const resposta = await axios.get(link);
-        serverData.push(...resposta.data);
-        if(index == 2){
-            console.log(serverData);
-        }
-    });
-}
 
 const retornarTudo = async () => {
     try {
@@ -77,14 +44,15 @@ const buscaUnica = async (titulo) => {
     }
 };
 
-rl.question('Para restornar toda a lista digite \'listar\'. \nPara buscar um unico elemento, digite \'unico\':\n >', async (resp) => {
-    const normalizeResp = resp.toUpperCase();
-
-    switch (normalizeResp) {
-        case "LISTAR":
+rl.question('Para retornar toda a lista usando fifo digite 1. \nPara retornar toda a lista usando pipe digite 2. \nPara buscar um unico elemento, usando semafaro, digite 3:\n >', async (resp) => {
+    switch (resp) {
+        case "1":
             await fifo();
             break;
-        case "UNICO":
+        case "2":
+            await pipe();
+            break;
+        case "3":
         default:
             rl.question('Digite o titulo da busca:\n >', async (titulo) => {
                 await buscaUnica(titulo);
