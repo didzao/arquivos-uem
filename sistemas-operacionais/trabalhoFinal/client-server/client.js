@@ -1,4 +1,3 @@
-const axios = require('axios');
 const readline = require('readline');
 
 const pipe = require('../utils/pipe');
@@ -10,7 +9,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-rl.question('Para retornar toda a lista usando fifo digite 1. \nPara retornar toda a lista usando pipe digite 2. \nPara buscar um unico elemento, usando semafaro, digite 3:\n >', async (resp) => {
+rl.question('Para retornar toda a lista usando FIFO digite 1. \nPara retornar toda a lista usando PIPE digite 2. \nPara buscar um unico elemento, usando SEMAFORO, digite 3:\n >', async (resp) => {
     switch (resp) {
         case "1":
             await fifo();
