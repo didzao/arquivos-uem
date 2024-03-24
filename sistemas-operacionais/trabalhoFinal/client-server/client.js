@@ -1,9 +1,11 @@
 const readline = require('readline');
 const axios = require('axios');
-const { PORT_1, PORT_2, PORT_3 } = require('../utils/variaveis');
-const normalize = require('../utils/normalize');
+
 const pipe = require('../utils/pipe');
 const fifo = require('../utils/fifo');
+const normalize = require('../utils/normalize');
+const buscarServidores = require('../utils/semaforo');
+const { PORT_1, PORT_2, PORT_3 } = require('../utils/variaveis');
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -38,8 +40,15 @@ rl.question('Para retornar toda a lista usando fifo digite 1. \nPara retornar to
             break;
         case "3":
         default:
-            rl.question('Digite o titulo da busca:\n >', async (titulo) => {
-                await buscaUnica(titulo);
+            rl.question('Digite o titulo ou autor para buscar:\n >', async (query) => {
+                buscarServidores(query).then((searchData) => {
+                    if (searchData) {
+                        console.log(`\n O termo \"${query}\" foi encontrado!\n`);
+                        console.log(searchData);
+                    } else {
+                        console.log(`\n O termo \"${query}\" não foi encontrado!`);
+                    }
+                });
             })
             break;
     }

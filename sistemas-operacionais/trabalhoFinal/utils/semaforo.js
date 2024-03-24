@@ -1,12 +1,7 @@
-const readline = require("readline");
 const axios = require("axios").default;
-const { PORT_1, PORT_2, PORT_3, normalize } = require("../utils");
 const Semaphore = require("semaphore-async-await").default;
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+const { PORT_1, PORT_2, PORT_3 } = require("./variaveis");
 
 // URLs dos servidores
 const urls = [
@@ -60,14 +55,5 @@ const buscarServidores = async (searchParam) => {
   return searchData;
 };
 
-rl.question("Digite o titulo ou autor para buscar:\n >", (query) => {
-  // Realiza a busca nos servidores
-  buscarServidores(query).then((searchData) => {
-    if (searchData) {
-      console.log(`\n O termo \"${query}\" foi encontrado!\n`);
-      console.log(searchData);
-    } else {
-      console.log(`\n O termo \"${query}\" não foi encontrado!`);
-    }
-  });
-});
+module.exports = buscarServidores;
+
