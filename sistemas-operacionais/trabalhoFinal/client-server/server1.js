@@ -1,5 +1,5 @@
 const express = require('express');
-const { PORT_1 } = require('../utils');
+const { PORT_1 } = require('../utils/variaveis');
 const { database1 } = require('../database');
 
 const app = express();
