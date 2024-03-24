@@ -37,9 +37,9 @@ const buscarServidores = async (searchParam) => {
       if (!searchData) {
         const data = await buscarDado(url, searchParam);
 
-        const dataVazio = Array.isArray(data) && data.length > 0;
+        const dataNaoVazio = Array.isArray(data) && data.length > 0;
 
-        if (dataVazio) {
+        if (dataNaoVazio) {
           searchData = data;
         }
       }
