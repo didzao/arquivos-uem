@@ -1,4 +1,5 @@
 const axios = require('axios').default;
+
 const { PORT_1, PORT_2, PORT_3 } = require("./variaveis");
 
 const pipe = async () => {
