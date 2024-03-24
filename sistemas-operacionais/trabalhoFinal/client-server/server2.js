@@ -1,6 +1,7 @@
 const express = require("express");
-const { database2 } = require("../database");
+
 const normalize = require("../utils/normalize");
+const { database2 } = require("../utils/database");
 const { PORT_2, STATUS_NOT_FOUND } = require("../utils/variaveis");
 
 const app = express();
